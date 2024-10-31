@@ -136,6 +136,21 @@ export class MockthereumNode {
                     handler: new RpcResponseHandler(null)
                 }),
                 this.mockttpServer.addRequestRule({
+                    matchers: [new RpcCallMatcher('eth_chainId')],
+                    priority: Mockttp.RulePriority.FALLBACK,
+                    handler: new RpcResponseHandler('0x1')
+                }),
+                this.mockttpServer.addRequestRule({
+                    matchers: [new RpcCallMatcher('eth_getTransactionCount')],
+                    priority: Mockttp.RulePriority.FALLBACK,
+                    handler: new RpcResponseHandler('0x0')
+                }),
+                this.mockttpServer.addRequestRule({
+                    matchers: [new RpcCallMatcher('eth_estimateGas')],
+                    priority: Mockttp.RulePriority.FALLBACK,
+                    handler: new RpcResponseHandler('0x1')
+                }),
+                this.mockttpServer.addRequestRule({
                     matchers: [new RpcCallMatcher('eth_gasPrice')],
                     priority: Mockttp.RulePriority.FALLBACK,
                     handler: new RpcResponseHandler(`0x${(1000).toString(16)}`)
